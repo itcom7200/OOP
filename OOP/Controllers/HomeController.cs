@@ -75,7 +75,7 @@ namespace OOP.Controllers
             ViewBag.auto = counter;
 
             SetResponse response2 = await client.SetAsync("auto/id",auto);
-            Auto result2 = response2.ResultAs<Auto>(); // เดี่ยวมาทำต่อ ยังไม่เสร็จ
+            Auto result2 = response2.ResultAs<Auto>(); // เดี่ยวมาทำต่อ ยังไม่เสร็จ ไหนลองคอมเม้นดูสิ
 
 
             account.id = counter;
