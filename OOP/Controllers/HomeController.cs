@@ -57,7 +57,12 @@ namespace OOP.Controllers
             ViewBag.Message = "Contact Page";
             return View();
         }
-        
+        public ActionResult Login()
+        {
+            ViewBag.Message = "Login Page";
+            return View();
+        }
+
         public async Task<ActionResult>MyAction(Account account)
         {
             //ส่วนนี้ เอาไว้รับ Set ค่า
