@@ -62,47 +62,21 @@ namespace OOP.Controllers
         {
             //ส่วนนี้ เอาไว้รับ Set ค่า
             IFirebaseClient client = new FirebaseClient(config);
-            /*
-            Auto auto = new Auto();
-            auto.count = 1;
-            SetResponse response1 = await client.SetAsync("auto/id", auto);   // ส่วนสำคัญอยู่ที่ path ด้านหลัง ถ้าอ้างอิงไม่ถูก จะไม่ได้ข้อมูล
-            Auto resultA = response1.ResultAs<Auto>();
-            int counter =resultA.count;*/
-            FirebaseResponse response1 = await client.GetAsync("auto/id");
-            Auto auto = response1.ResultAs<Auto>();
-            int autoResult = auto.count;
-            int counter = autoResult + 1;
+            
+            FirebaseResponse response1 = await client.GetAsync("auto/id");  // อ่านค่าจาก Auto/id ก็จะได้ count=""
+            Auto auto = response1.ResultAs<Auto>();                         // ใส่ค่า count ลงใน class Auto
+            int autoResult = auto.count;                                    //ส่งค่าตัวเลขที่อยู่ใน auto.count ไปให้ result เพื่อบวก
+            int counter = autoResult + 1;                                   
             ViewBag.auto = counter;
 
-            /*
-            SetResponse response2 = await client.SetAsync("auto/id/count",counter);
-            Auto result2 = response2.ResultAs<Auto>(); // เดี่ยวมาทำต่อ ยังไม่เสร็จ ไหนลองคอมเม้นดูสิ    
-            */
-
-            account.id = counter;
+            account.id = counter; // กำหนด accountID ตรงนี้ เพราะไม่ได้เก็บจากหน้า View
             SetResponse response = await client.SetAsync("account/"+counter, account);   // ส่วนสำคัญอยู่ที่ path ด้านหลัง ถ้าอ้างอิงไม่ถูก จะไม่ได้ข้อมูล
-            Account result = response.ResultAs<Account>();
+            Account result = response.ResultAs<Account>();                               // set ค่า account ไปที่ Firebase 
 
             SetResponse autoresponse = await client.SetAsync("auto/id/count", counter);   // ส่วนสำคัญอยู่ที่ path ด้านหลัง ถ้าอ้างอิงไม่ถูก จะไม่ได้ข้อมูล
-            Auto autoresult = response.ResultAs<Auto>();
-
-
-            // เช่นเดียวกัน ใน class ก็ต้องตรงกันด้วย
+            Auto autoresult = response.ResultAs<Auto>();                                // set ค่า account ไปที่ Firebase 
 
             ViewBag.Message = "Updated";
-            
-            //ส่วนนี้ เอาไว้รับ Response ใช้ได้แล้ว
-            /*
-            // account.fullName() ดึงมาจาก class เพราะงั้น OOP ใน C# นำมาใช้งานได้s
-            var data = account.fullName();
-            ViewBag.Message = data;
-
-            client = new FireSharp.FirebaseClient(config);
-
-            FirebaseResponse response = await client.GetAsync("account/set");
-            Account acc = response.ResultAs<Account>(); //อันนี้ของ Firesharp เอง
-            ViewBag.tester = acc.passWord; */
-            
 
             return View();
         }
