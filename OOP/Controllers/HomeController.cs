@@ -74,13 +74,20 @@ namespace OOP.Controllers
             int counter = autoResult + 1;
             ViewBag.auto = counter;
 
-            SetResponse response2 = await client.SetAsync("auto/id",auto);
-            Auto result2 = response2.ResultAs<Auto>(); // เดี่ยวมาทำต่อ ยังไม่เสร็จ ไหนลองคอมเม้นดูสิ
-
+            /*
+            SetResponse response2 = await client.SetAsync("auto/id/count",counter);
+            Auto result2 = response2.ResultAs<Auto>(); // เดี่ยวมาทำต่อ ยังไม่เสร็จ ไหนลองคอมเม้นดูสิ    
+            */
 
             account.id = counter;
             SetResponse response = await client.SetAsync("account/"+counter, account);   // ส่วนสำคัญอยู่ที่ path ด้านหลัง ถ้าอ้างอิงไม่ถูก จะไม่ได้ข้อมูล
-            Account result = response.ResultAs<Account>();                             // เช่นเดียวกัน ใน class ก็ต้องตรงกันด้วย
+            Account result = response.ResultAs<Account>();
+
+            SetResponse autoresponse = await client.SetAsync("auto/id/count", counter);   // ส่วนสำคัญอยู่ที่ path ด้านหลัง ถ้าอ้างอิงไม่ถูก จะไม่ได้ข้อมูล
+            Auto autoresult = response.ResultAs<Auto>();
+
+
+            // เช่นเดียวกัน ใน class ก็ต้องตรงกันด้วย
 
             ViewBag.Message = "Updated";
             
