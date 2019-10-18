@@ -7,9 +7,7 @@ namespace OOP.Models
 {
     public class Account
     {
-
         //Attribute (ไว้เก็บตัวแปร Variables)
-
         public int id { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }

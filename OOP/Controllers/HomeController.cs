@@ -60,6 +60,12 @@ namespace OOP.Controllers
         public ActionResult Login()
         {
             ViewBag.Message = "Login Page";
+            if (TempData["Message"] != null)
+            {
+                ViewBag.Message = TempData["Message"].ToString();
+            }
+            
+            
             return View();
         }
 
@@ -81,9 +87,10 @@ namespace OOP.Controllers
             SetResponse autoresponse = await client.SetAsync("auto/id/count", counter);   // ส่วนสำคัญอยู่ที่ path ด้านหลัง ถ้าอ้างอิงไม่ถูก จะไม่ได้ข้อมูล
             Auto autoresult = response.ResultAs<Auto>();                                // set ค่า account ไปที่ Firebase 
 
-            ViewBag.Message = "Updated";
+            TempData["Message"] = "Register Success"; //  ส่งกลับไปแจ้งหน้า Login ว่าสมัครสมาชิคเรียบร้อยแล้ว
 
-            return View();
+            return RedirectToAction("Login");
         }
+        
     }
 }
