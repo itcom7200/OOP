@@ -38,18 +38,12 @@ namespace OOP.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public async Task<ActionResult> About()
         {
-            ViewBag.Message = "test return string";
-            /*Account test1 = new Account();
-            test1.firstname = "Suntiparb";
-            test1.username = 1;
-            test1.addID();
-            
+            FirebaseResponse response = await client.GetAsync("account/");
+            List<Account> result = response.ResultAs<List<Account>>();
+            var i = "test";
 
-                ViewBag.Message = test1.name + " " + test1.id;
-            //string accountName = test1.name + " " + test1.id;
-            */
             return View();
         }
 
@@ -68,7 +62,7 @@ namespace OOP.Controllers
             return View();
         }
 
-        public async Task<ActionResult>MyAction(Account account)
+        /*public async Task<ActionResult>MyAction(Account account)
         {
             //ส่วนนี้ เอาไว้รับ Set ค่า
             string AutoIncrement = "auto/id";
@@ -89,7 +83,7 @@ namespace OOP.Controllers
             TempData["Message"] = "Register Success"; //  ส่งกลับไปแจ้งหน้า Login ว่าสมัครสมาชิคเรียบร้อยแล้ว
 
             return RedirectToAction("Login");
-        }
+        }*/
         public ActionResult Dashboard()
         {
             return View();

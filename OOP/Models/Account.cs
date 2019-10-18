@@ -13,7 +13,7 @@ namespace OOP.Models
         public string lastname { get; set; }
         public string email { get; set; }
         public string password { get; set; }
-        
+
 
         //Behavior (เก็บ Method หรือ Functions)
 
@@ -25,7 +25,6 @@ namespace OOP.Models
         {
             return firstname + " " + lastname;
         }
-        
+
     }
-    
 }
