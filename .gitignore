@@ -1,1 +1,2 @@
-$echo >>.gitignore "/.vs"
+$echo >>.gitignore "/.vs/OOP/v15/Server/sqlite3"
+
