@@ -41,8 +41,9 @@ namespace OOP.Controllers
         public async Task<ActionResult> About()
         {
             FirebaseResponse response = await client.GetAsync("account/");
+            int i = 10;
             List<Account> result = response.ResultAs<List<Account>>();
-            var i = "test";
+            
 
             return View();
         }
