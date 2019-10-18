@@ -24,7 +24,8 @@ namespace OOP.Controllers
             AuthSecret = "WAZkKR7woJ4hpRibeKTM8ynAym4sVrt4DerGH4DE",
             BasePath = "https://testproject-25470.firebaseio.com/"
         };
-        public static IFirebaseClient client;
+        
+        public static IFirebaseClient client = new FirebaseClient(config);
 
         public ActionResult Index()
         {
@@ -57,24 +58,22 @@ namespace OOP.Controllers
             ViewBag.Message = "Contact Page";
             return View();
         }
+        
         public ActionResult Login()
         {
-            ViewBag.Message = "Login Page";
-            if (TempData["Message"] != null)
+            if (TempData["Message"] != null) //new register
             {
                 ViewBag.Message = TempData["Message"].ToString();
             }
-            
-            
             return View();
         }
 
         public async Task<ActionResult>MyAction(Account account)
         {
             //ส่วนนี้ เอาไว้รับ Set ค่า
-            IFirebaseClient client = new FirebaseClient(config);
-            
-            FirebaseResponse response1 = await client.GetAsync("auto/id");  // อ่านค่าจาก Auto/id ก็จะได้ count=""
+            string AutoIncrement = "auto/id";
+
+            FirebaseResponse response1 = await client.GetAsync(AutoIncrement);  // อ่านค่าจาก Auto/id ก็จะได้ count=""
             Auto auto = response1.ResultAs<Auto>();                         // ใส่ค่า count ลงใน class Auto
             int autoResult = auto.count;                                    //ส่งค่าตัวเลขที่อยู่ใน auto.count ไปให้ result เพื่อบวก
             int counter = autoResult + 1;                                   
@@ -91,6 +90,18 @@ namespace OOP.Controllers
 
             return RedirectToAction("Login");
         }
-        
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
+        public async Task<ActionResult> ActionLogin(Account login)
+        {
+            // ยังไม่เสร็จ
+            FirebaseResponse response = await client.GetAsync("");
+            Todo todo = response.ResultAs<Todo>();
+
+            return RedirectToAction("Dashboard");
+        }
+
     }
 }
