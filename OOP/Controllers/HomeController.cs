@@ -40,8 +40,10 @@ namespace OOP.Controllers
 
         public async Task<ActionResult> About()
         {
-            FirebaseResponse response = await client.GetAsync("account/");
-            int i = 10;
+
+            
+            FirebaseResponse response = await client.GetAsync(".child(\"account\")");
+            int testResponse = 10;
             List<Account> result = response.ResultAs<List<Account>>();
             
 
